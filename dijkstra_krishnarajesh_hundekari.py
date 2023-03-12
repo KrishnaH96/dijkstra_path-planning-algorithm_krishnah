@@ -86,82 +86,197 @@ def obstacle_check(node_pose):
     else:
         return False
     
-#Defining action sets
+
+home_x = int(input("Hey!! Where to start? Please enter home 'x' coordinate:  \n"))
+home_y = int(input("Please enter home 'y' coordinate: \n"))
+home_loc = (home_x, home_y)
+while obstacle_check(home_loc):
+    print("The entered value is in the obstacle. Please enter new values\n")
+    home_x = int(input("Hey!! Where to start? Please enter home 'x' coordinate:  \n"))
+    home_y = int(input("Please enter home 'y' coordinate: \n"))
+    home_loc = (home_x, home_y)
+
+
+goal_x = int(input("Now give the goal 'x' coordinate \n")) 
+goal_y = int(input("Please enter goal 'y' coordinate \n"))
+goal_loc = (goal_x, goal_y)
+while obstacle_check(goal_loc):
+    goal_x = int(input("Now give the goal 'x' coordinate \n")) 
+    goal_y = int(input("Please enter goal 'y' coordinate \n"))
+    goal_loc = (goal_x, goal_y)
+
+
+x_visited = [] 
+y_visited = [] 
+start_pose = home_loc
+goal_pose = goal_loc
+
+# start_pose = (10, 10)
+# goal_pose = (180, 98)
+
+c2c = 0
+parent_pose = None
+adam_node = (c2c,(parent_pose),(start_pose))
+open_list = PriorityQueue()
+open_list.put(adam_node)
+
+closed_list = {} 
 
 def left_move(node):
     node_in_action = copy.deepcopy(node)
-    c2c_left = node_in_action[0]+1
+    c2c_moved = node_in_action[0]+1
     current_parent = node_in_action[2]
-    x_new = node_in_action[2][0]-1
-    y_new = node_in_action[2][1]
-    current_child = (x_new, y_new)
-    return (c2c_left, current_parent, current_child)
+    updated_x = node_in_action[2][0]-1
+    updated_y = node_in_action[2][1]
+    current_child = (updated_x, updated_y)
+
+    if obstacle_check(current_child) == False:
+        if current_child not in closed_list:
+            for i in range(0,(open_list.qsize())):
+                if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
+                    open_list.queue[i][1] == current_parent
+            open_list.put((c2c_moved, current_parent, current_child))
 
 def right_move(node):
     node_in_action = copy.deepcopy(node)
-    c2c_right = node_in_action[0]+1
+    c2c_moved = node_in_action[0]+1
     current_parent = node_in_action[2]
-    x_new = node_in_action[2][0]+1
-    y_new = node_in_action[2][1]
-    current_child = (x_new, y_new)
-    return (c2c_right, current_parent, current_child)
-
+    updated_x = node_in_action[2][0]+1
+    updated_y = node_in_action[2][1]
+    current_child = (updated_x, updated_y)
+    
+    if obstacle_check(current_child) == False:
+        if current_child not in closed_list:
+            for i in range(0,(open_list.qsize())):
+                if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
+                    open_list.queue[i][1] == current_parent
+            open_list.put((c2c_moved, current_parent, current_child))
+            
 
 def up_move(node):
     node_in_action = copy.deepcopy(node)
-    c2c_right = node_in_action[0]+1
+    c2c_moved = node_in_action[0]+1
     current_parent = node_in_action[2]
-    x_new = node_in_action[2][0]
-    y_new = node_in_action[2][1]+1
-    current_child = (x_new, y_new)
-    return (c2c_right, current_parent, current_child)
+    updated_x = node_in_action[2][0]
+    updated_y = node_in_action[2][1]+1
+    current_child = (updated_x, updated_y)
+    
+    if obstacle_check(current_child) == False:
+        if current_child not in closed_list:
+            for i in range(0,(open_list.qsize())):
+                if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
+                    open_list.queue[i][1] == current_parent
+            open_list.put((c2c_moved, current_parent, current_child))
 
 def down_move(node):
     node_in_action = copy.deepcopy(node)
-    c2c_right = node_in_action[0]+1
+    c2c_moved = node_in_action[0]+1
     current_parent = node_in_action[2]
-    x_new = node_in_action[2][0]
-    y_new = node_in_action[2][1]-1
-    current_child = (x_new, y_new)
-    return (c2c_right, current_parent, current_child)
+    updated_x = node_in_action[2][0]
+    updated_y = node_in_action[2][1]-1
+    current_child = (updated_x, updated_y)
+    
+    if obstacle_check(current_child) == False:
+        if current_child not in closed_list:
+            for i in range(0,(open_list.qsize())):
+                if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
+                    open_list.queue[i][1] == current_parent
+            open_list.put((c2c_moved, current_parent, current_child))
 
 
 def up_left_move(node):
     node_in_action = copy.deepcopy(node)
-    c2c_right = node_in_action[0]+1
+    c2c_moved = node_in_action[0]+1.4
     current_parent = node_in_action[2]
-    x_new = node_in_action[2][0]-1
-    y_new = node_in_action[2][1]+1
-    current_child = (x_new, y_new)
-    return (c2c_right, current_parent, current_child)
+    updated_x = node_in_action[2][0]-1
+    updated_y = node_in_action[2][1]+1
+    current_child = (updated_x, updated_y)
+    
+    if obstacle_check(current_child) == False:
+        if current_child not in closed_list:
+            for i in range(0,(open_list.qsize())):
+                if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
+                    open_list.queue[i][1] == current_parent
+            open_list.put((c2c_moved, current_parent, current_child))
 
 def up_right_move(node):
     node_in_action = copy.deepcopy(node)
-    c2c_right = node_in_action[0]+1
+    c2c_moved = node_in_action[0]+1.4
     current_parent = node_in_action[2]
-    x_new = node_in_action[2][0]+1
-    y_new = node_in_action[2][1]+1
-    current_child = (x_new, y_new)
-    return (c2c_right, current_parent, current_child)
+    updated_x = node_in_action[2][0]+1
+    updated_y = node_in_action[2][1]+1
+    current_child = (updated_x, updated_y)
+    
+    if obstacle_check(current_child) == False:
+        if current_child not in closed_list:
+            for i in range(0,(open_list.qsize())):
+                if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
+                    open_list.queue[i][1] == current_parent
+            open_list.put((c2c_moved, current_parent, current_child))
+
 
 def down_left_move(node):
     node_in_action = copy.deepcopy(node)
-    c2c_right = node_in_action[0]+1
+    c2c_moved = node_in_action[0]+1.4
     current_parent = node_in_action[2]
-    x_new = node_in_action[2][0]-1
-    y_new = node_in_action[2][1]-1
-    current_child = (x_new, y_new)
-    return (c2c_right, current_parent, current_child)
+    updated_x = node_in_action[2][0]-1
+    updated_y = node_in_action[2][1]-1
+    current_child = (updated_x, updated_y)
+    
+    if obstacle_check(current_child) == False:
+        if current_child not in closed_list:
+            for i in range(0,(open_list.qsize())):
+                if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
+                    open_list.queue[i][1] == current_parent
+            open_list.put((c2c_moved, current_parent, current_child))
 
 def down_right_move(node):
     node_in_action = copy.deepcopy(node)
-    c2c_right = node_in_action[0]+1
+    c2c_moved = node_in_action[0]+1.4
     current_parent = node_in_action[2]
-    x_new = node_in_action[2][0]+1
-    y_new = node_in_action[2][1]-1
-    current_child = (x_new, y_new)
-    return (c2c_right, current_parent, current_child)
+    updated_x = node_in_action[2][0]+1
+    updated_y = node_in_action[2][1]-1
+    current_child = (updated_x, updated_y)
+    
+    if obstacle_check(current_child) == False:
+        if current_child not in closed_list:
+            for i in range(0,(open_list.qsize())):
+                if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
+                    open_list.queue[i][1] == current_parent
+            open_list.put((c2c_moved, current_parent, current_child))
 
+
+while True:
+
+
+    current_node = open_list.get() 
+
+    if current_node[2] in closed_list: 
+        continue
+
+
+    x_visited.append(current_node[2][0]) 
+    y_visited.append(current_node[2][1])
+
+
+    closed_list[current_node[2]] = (current_node[1]) 
+    if current_node[2] == goal_pose: 
+        print("Mission Accomplished...Goal Reached")
+        print(current_node)
+        break
+        
+    else:
+
+        left_move(current_node)
+        right_move(current_node)
+        up_move(current_node)
+        down_move(current_node)
+
+        up_left_move(current_node)
+        down_left_move(current_node)
+        up_right_move(current_node)
+        down_right_move(current_node)
+     
 
 
 
