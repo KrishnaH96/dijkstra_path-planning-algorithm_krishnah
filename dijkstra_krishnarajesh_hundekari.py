@@ -2,11 +2,12 @@ import math
 from queue import PriorityQueue
 import matplotlib.pyplot as plt
 import numpy as np
+import copy
+
 
 def line_equation(x1, y1, x2, y2):
     slope = (y2 - y1) / (x2 - x1)
-    
-    
+       
     y_intercept = y1 - slope * x1
     
     return slope, y_intercept
@@ -66,6 +67,81 @@ def obstacle_check(x,y):
     else:
         return False
     
+#Defining action sets
+
+def left_move(node):
+    node_in_action = copy.deepcopy(node)
+    c2c_left = node_in_action[0]+1
+    current_parent = node_in_action[2]
+    x_new = node_in_action[2][0]-1
+    y_new = node_in_action[2][1]
+    current_child = (x_new, y_new)
+    return (c2c_left, current_parent, current_child)
+
+def right_move(node):
+    node_in_action = copy.deepcopy(node)
+    c2c_right = node_in_action[0]+1
+    current_parent = node_in_action[2]
+    x_new = node_in_action[2][0]+1
+    y_new = node_in_action[2][1]
+    current_child = (x_new, y_new)
+    return (c2c_right, current_parent, current_child)
+
+
+def up_move(node):
+    node_in_action = copy.deepcopy(node)
+    c2c_right = node_in_action[0]+1
+    current_parent = node_in_action[2]
+    x_new = node_in_action[2][0]
+    y_new = node_in_action[2][1]+1
+    current_child = (x_new, y_new)
+    return (c2c_right, current_parent, current_child)
+
+def down_move(node):
+    node_in_action = copy.deepcopy(node)
+    c2c_right = node_in_action[0]+1
+    current_parent = node_in_action[2]
+    x_new = node_in_action[2][0]
+    y_new = node_in_action[2][1]-1
+    current_child = (x_new, y_new)
+    return (c2c_right, current_parent, current_child)
+
+
+def up_left_move(node):
+    node_in_action = copy.deepcopy(node)
+    c2c_right = node_in_action[0]+1
+    current_parent = node_in_action[2]
+    x_new = node_in_action[2][0]-1
+    y_new = node_in_action[2][1]+1
+    current_child = (x_new, y_new)
+    return (c2c_right, current_parent, current_child)
+
+def up_right_move(node):
+    node_in_action = copy.deepcopy(node)
+    c2c_right = node_in_action[0]+1
+    current_parent = node_in_action[2]
+    x_new = node_in_action[2][0]+1
+    y_new = node_in_action[2][1]+1
+    current_child = (x_new, y_new)
+    return (c2c_right, current_parent, current_child)
+
+def down_left_move(node):
+    node_in_action = copy.deepcopy(node)
+    c2c_right = node_in_action[0]+1
+    current_parent = node_in_action[2]
+    x_new = node_in_action[2][0]-1
+    y_new = node_in_action[2][1]-1
+    current_child = (x_new, y_new)
+    return (c2c_right, current_parent, current_child)
+
+def down_right_move(node):
+    node_in_action = copy.deepcopy(node)
+    c2c_right = node_in_action[0]+1
+    current_parent = node_in_action[2]
+    x_new = node_in_action[2][0]+1
+    y_new = node_in_action[2][1]-1
+    current_child = (x_new, y_new)
+    return (c2c_right, current_parent, current_child)
 
 
 
