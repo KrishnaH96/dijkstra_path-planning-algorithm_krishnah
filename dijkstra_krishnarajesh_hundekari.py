@@ -3,6 +3,7 @@ from queue import PriorityQueue
 import matplotlib.pyplot as plt
 import numpy as np
 import copy
+import matplotlib.patches as patch
 
 
 def line_equation(x1, y1, x2, y2):
@@ -37,19 +38,17 @@ def upper_rect(x,y):
 
 def hexagon_obt(x,y):
 
-    # h_l1 = line_equation(235.05 - 5, 162.5 + 5,300, 200 + 5)
     h_l1 = line_equation(230.05, 165.38,300, 205.77)
     l1= y - h_l1[0] * x - h_l1[1]
 
-    # h_l2 = line_equation(300, 200 + 5, 364.95 + 5, 162.5 + 5)
+   
     h_l2 = line_equation(300, 205.77, 369.95, 165.38)
     l2 = y - h_l2[0] * x - h_l2[1]
 
-    # h_l3 = line_equation(364.95 + 5, 87.5 - 5, 300, 50 -5)
+   
     h_l3 = line_equation(369.95, 84.61, 300, 44.22)
     l3 = y - h_l3[0] * x - h_l3[1]
 
-    # h_l4 = line_equation(300, 50 -5, 235.05 - 5, 87.5 - 5)
     h_l4 = line_equation(300, 44.22, 230.04, 84.61)
     l4 = y - h_l4[0] * x - h_l4[1]
     
@@ -62,11 +61,11 @@ def hexagon_obt(x,y):
 
 def triangle_obt(x,y):
 
-    # t_l1 = line_equation(460 -5, 225+5, 515,125)
+   
     t_l1 = line_equation(455, 246.18, 515.59,125)
     l5= y - t_l1[0] * x - t_l1[1]
 
-    # t_l2 = line_equation(515,125, 460 -5, 25-5)
+    
     t_l2 = line_equation(515.59,125,455, 3.81)
     l6 = y - t_l2[0] * x - t_l2[1]
 
@@ -111,8 +110,6 @@ y_visited = []
 start_pose = home_loc
 goal_pose = goal_loc
 
-# start_pose = (10, 10)
-# goal_pose = (180, 98)
 
 c2c = 0
 parent_pose = None
@@ -278,5 +275,72 @@ while True:
         down_right_move(current_node)
      
 
+
+#backtracing the shortest path
+shortest_planned_path=[]
+check_this_node = goal_pose
+while check_this_node != start_pose:
+    shortest_planned_path.append(check_this_node)
+    check_this_node = closed_list[check_this_node]
+shortest_planned_path.append(start_pose)
+shortest_planned_path.reverse()
+
+x_shortest = [] 
+y_shortest = []
+for i in range(len(shortest_planned_path)):
+    x_shortest.append(shortest_planned_path[i][0])
+    y_shortest.append(shortest_planned_path[i][1])
+
+
+
+fig, ax = plt.subplots(figsize=(6,2.5))
+
+bottom_rectangle = patch.Rectangle((100, 150), 50, 100, linewidth=1, edgecolor='g', facecolor='g')
+top_rectangle = patch.Rectangle((100, 0), 50, 100, linewidth=1, edgecolor='g', facecolor='g')
+hexagon_obstacle = patch.RegularPolygon((300, 125), 6, 75, linewidth=1, edgecolor='g', facecolor='g')
+tri_obstacle = patch.Polygon([(460, 25), (460, 225), (510, 125)], linewidth=1, edgecolor='g', facecolor='g')
+
+ax.add_patch(bottom_rectangle)
+ax.add_patch(top_rectangle)
+ax.add_patch(hexagon_obstacle)
+ax.add_patch(tri_obstacle)
+
+
+
+#Plotting the path
+plt.xlabel('X Axis')
+plt.ylabel('Y Axis')
+plt.title("Visaulisation Exploration")
+plt.axis([0 , 600 , 0 ,250])
+
+x_hat = 0
+y_hat = 0
+
+
+for i in range(len(x_visited)) :
+    if x_hat == goal_pose[0] and y_hat == goal_pose[1] :
+        break
+    if len(x_visited)>100:
+        plt.scatter(x_visited[0:100] , y_visited[0:100] , c='red' , s=1)
+        plt.pause(0.0005)
+        del x_visited[:100]
+        del y_visited[:100]
+    else :
+        for j in range(len(x_visited)):
+            plt.scatter(x_visited[j] , y_visited[j] , c='red' , s=1)
+            plt.pause(0.0005)
+            x_hat = x_visited[j]
+            y_hat = y_visited[j]
+            if x_visited[j] == goal_pose[0] and y_visited[j] == goal_pose[1] :
+                break
+
+
+
+plt.title("Shortest Path traced by Point Robot")
+for i in range(len(x_shortest)):
+    plt.scatter(x_shortest[i] , y_shortest[i] , c='yellow' , s=2, marker='D')
+    plt.pause(0.00005)
+
+plt.show
 
 
