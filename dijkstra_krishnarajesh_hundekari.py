@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import copy
 import matplotlib.patches as patch
+import time
 
+start = time.time()
 
 def line_equation(x1, y1, x2, y2):
     slope = (y2 - y1) / (x2 - x1)
@@ -291,7 +293,9 @@ for i in range(len(shortest_planned_path)):
     x_shortest.append(shortest_planned_path[i][0])
     y_shortest.append(shortest_planned_path[i][1])
 
-
+end = time.time()
+print(f'Time needed for the algorithm: {end - start}\n')
+print('\n')
 
 fig, ax = plt.subplots(figsize=(6,2.5))
 
