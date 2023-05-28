@@ -11,10 +11,6 @@ Implementation of the Dijkstra Algorithm for a Point Robot
 
 Find all the possible 8 connected neighbors and subsequent nodes of those neighbors along with backtracking and visualization
 
-## Python File 
-```
-It is stored in the directory proj2_Shail_Kiritkumar_Shah.zip / dijkstra_shail_kiritkumar_shah.py
-```
 ## Running the code
 There are four ways of running a python script which are as follows:
 
@@ -31,32 +27,29 @@ If it yields result like this one:
 
 *Python 3.8.10*
 
-Then you may run script in terminal by typing following line in the directory it is located at:
-
-*python3 dijkstra_shail_kiritkumar_shah.py*
-
 ## Dependencies
 
 import following modules/library for the script to run correctly: 
 
 *import  numpy as np*  			
 
-*import cv2 as cv*  								
+*import matplotlib.pyplot as plt*  								
 
-*from queue import PriorityQueue*  								
+*from queue import PriorityQueue*  			
 
-*import math as m*  								
+*import matplotlib.patches as patch*
 
-*import time as tm*  								
+*import copy*
+
+*import math*								
+
+*import time*  								
 
 ## User input
 
-Defining user defined initial & goal node in following format:
-```
-Enter starting coordinates: 6 6
-Enter goal coordinates: 500 200
-```
-The elements are to be entered one after another and with a space separator/delimiter.
-Kindly provide the input from your terminal and in the format it is explained above for correct implementation
+1. Program will prompt to ask the inputs and will ask the X and Y coordinates for start(Home) position and goal position repsectively.
+  Please put whole number integer values as input, the program will ask the input until the positions are clear(not in obstacle space).
+  Give on coordiate at a time, and put enter to put next coordinate, the code will take all four values in int individually.
 
-The output file of video will be generated at the directory path your terminal is located at.
+2. The program will take sometime to explore far aways points, but quite faster while exploring nearby nodes.
+Please be patient while visualising the exploration of the nodes and backtracking the shortest path.
