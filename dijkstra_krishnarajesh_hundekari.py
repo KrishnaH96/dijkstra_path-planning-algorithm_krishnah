@@ -133,7 +133,7 @@ def left_move(node):
         if current_child not in closed_list:
             for i in range(0,(open_list.qsize())):
                 if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
-                    open_list.queue[i][1] == current_parent
+                    open_list.queue[i][1] = current_parent
             open_list.put((c2c_moved, current_parent, current_child))
 
 def right_move(node):
@@ -148,7 +148,7 @@ def right_move(node):
         if current_child not in closed_list:
             for i in range(0,(open_list.qsize())):
                 if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
-                    open_list.queue[i][1] == current_parent
+                    open_list.queue[i][1] = current_parent
             open_list.put((c2c_moved, current_parent, current_child))
             
 
@@ -164,7 +164,7 @@ def up_move(node):
         if current_child not in closed_list:
             for i in range(0,(open_list.qsize())):
                 if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
-                    open_list.queue[i][1] == current_parent
+                    open_list.queue[i][1] = current_parent
             open_list.put((c2c_moved, current_parent, current_child))
 
 def down_move(node):
@@ -179,7 +179,7 @@ def down_move(node):
         if current_child not in closed_list:
             for i in range(0,(open_list.qsize())):
                 if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
-                    open_list.queue[i][1] == current_parent
+                    open_list.queue[i][1] = current_parent
             open_list.put((c2c_moved, current_parent, current_child))
 
 
@@ -195,7 +195,7 @@ def up_left_move(node):
         if current_child not in closed_list:
             for i in range(0,(open_list.qsize())):
                 if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
-                    open_list.queue[i][1] == current_parent
+                    open_list.queue[i][1] = current_parent
             open_list.put((c2c_moved, current_parent, current_child))
 
 def up_right_move(node):
@@ -210,7 +210,7 @@ def up_right_move(node):
         if current_child not in closed_list:
             for i in range(0,(open_list.qsize())):
                 if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
-                    open_list.queue[i][1] == current_parent
+                    open_list.queue[i][1] = current_parent
             open_list.put((c2c_moved, current_parent, current_child))
 
 
@@ -226,7 +226,7 @@ def down_left_move(node):
         if current_child not in closed_list:
             for i in range(0,(open_list.qsize())):
                 if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
-                    open_list.queue[i][1] == current_parent
+                    open_list.queue[i][1] = current_parent
             open_list.put((c2c_moved, current_parent, current_child))
 
 def down_right_move(node):
@@ -241,7 +241,7 @@ def down_right_move(node):
         if current_child not in closed_list:
             for i in range(0,(open_list.qsize())):
                 if open_list.queue[i][2] == current_child and open_list.queue[i][0] > c2c_moved:
-                    open_list.queue[i][1] == current_parent
+                    open_list.queue[i][1] = current_parent
             open_list.put((c2c_moved, current_parent, current_child))
 
 
