@@ -11,6 +11,10 @@ Implementation of the Dijkstra Algorithm for a Point Robot
 
 Find all the possible 8 connected neighbors and subsequent nodes of those neighbors along with backtracking and visualization
 
+## Video
+
+https://github.com/KrishnaH96/dijkstra_path-planning-algorithm_krishnah/assets/113392023/6c22f92d-eac2-4aed-a769-fd917e4dac75
+
 ## Running the code
 There are four ways of running a python script which are as follows:
 
@@ -53,3 +57,6 @@ import following modules/library for the script to run correctly:
 
 2. The program will take sometime to explore far aways points, but quite faster while exploring nearby nodes.
 Please be patient while visualising the exploration of the nodes and backtracking the shortest path.
+
+
+
